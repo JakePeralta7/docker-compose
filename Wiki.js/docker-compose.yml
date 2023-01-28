@@ -1,0 +1,36 @@
+version: "3"
+services:
+
+  db:
+    image: postgres:11-alpine
+
+    environment:
+      POSTGRES_DB: wiki
+      POSTGRES_PASSWORD: wikijs_passwd      # change this
+      POSTGRES_USER: wikijs                 # change this
+    logging:
+      driver: "none"
+    restart: unless-stopped
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  wiki:
+    image: requarks/wiki:latest
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: wikijs                       # change this
+      DB_PASS: wikijs_passwd                # change this
+      DB_NAME: wiki
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - wiki:/wiki
+
+volumes:
+  db-data:
+  wiki:
