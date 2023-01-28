@@ -1,9 +1,5 @@
 version: '3'
 
-volumes:
-  opt-splunk-etc:
-  opt-splunk-var:
-
 services:
   splunkenterprise:
     build: .
