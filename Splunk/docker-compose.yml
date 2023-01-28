@@ -6,7 +6,7 @@ volumes:
 
 services:
   splunkenterprise:
-    #build: .
+    build: .
     hostname: splunkenterprise
     image: splunk/splunk:latest
     environment:
@@ -15,8 +15,8 @@ services:
       SPLUNK_ENABLE_LISTEN: 9997
       SPLUNK_ADD: tcp 1514
     volumes:
-      - ./volumes/etc:/opt/splunk/etc
-      - ./volumes/var:/opt/splunk/var
+      - ./vol/etc:/opt/splunk/etc
+      - ./vol/var:/opt/splunk/var
     ports:
       - "8000:8000"
       - "9997:9997"
